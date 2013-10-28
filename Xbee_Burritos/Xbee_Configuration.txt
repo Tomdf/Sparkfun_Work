@@ -1,5 +1,0 @@
-Xbee Burritos
-This is the configuration info for the burrito notification lights at Sparkfun. Aug 8, 2013
-Baud Rate: 9600
-PAN ID: 3505
-SC - Scan Channels: FFFF
