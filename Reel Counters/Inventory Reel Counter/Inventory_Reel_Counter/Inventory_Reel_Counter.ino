@@ -1,7 +1,6 @@
 
 byte led = 13;
-int gatePin = A1;
-int gateState = 0;
+int gatePin = A5;
 
 void setup() {                
   // initialize the digital pin as an output.
@@ -12,7 +11,7 @@ void setup() {
 
 // the loop routine runs over and over again forever:
 void loop() {
-  gateState = analogRead(gatePin);
+  int gateState = analogRead(gatePin);
   Serial.println(gateState);
   delay(50);
 }
