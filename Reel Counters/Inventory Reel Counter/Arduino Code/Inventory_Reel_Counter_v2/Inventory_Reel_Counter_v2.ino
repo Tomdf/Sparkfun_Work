@@ -11,7 +11,8 @@ void setup() {
 
 // the loop routine runs over and over again forever:
 void loop() {
-  int gateState = analogRead(gatePin);
+  int gateState = digitalRead(gatePin);
   Serial.println(gateState);
   delay(50);
 }
+
