@@ -3,12 +3,14 @@
 // MSGEQ7 spectrum analyser shield - basic demonstration
 byte strobe = 4; // strobe pins on digital 4
 byte res = 5; // reset pins on digital 5
+byte pot = A5;
 byte leftRED = 11; // the red led for the left channel
 byte leftGRN = 10;
 byte leftBLUE = 9;
 byte leftRedValue;
 byte leftBlueValue;
 byte leftGrnValue;
+int pause;
 
 int left[7]; // store band values in these arrays
 int right[7];
@@ -16,6 +18,7 @@ int band;
 void setup()
 {
 Serial.begin(115200);
+pinMode(pot, INPUT);
 pinMode(leftRED, OUTPUT);
 pinMode(leftGRN, OUTPUT);
 pinMode(leftBLUE, OUTPUT);
@@ -34,14 +37,36 @@ void loop()
    // Serial.print(left[band]);
    // Serial.print(" ");
   }
-  leftRedValue = map(left[1], 30, 700, 0, 255);
-  leftGrnValue = map(left[2], 30, 700, 0, 255);
-  leftBlueValue = map(left[3], 30, 700, 0, 255);
+  if (left[3] < 700) {
+    leftRedValue = 0;
+  }
+  else {
+  leftRedValue = map(left[3], 700, 1200, 0, 255);
+  }
+  if (left[4] < 700) {
+    leftGrnValue = 0;
+  }
+  else {
+  leftGrnValue = map(left[4], 700, 1200, 0, 255);
+  }
+  if (left[3] < 700) {
+    leftBlueValue = 0;
+  }
+  else {
+  leftBlueValue = map(left[5], 700, 1200, 0, 255);
+  }
   Serial.print(leftRedValue);
   Serial.println();
   analogWrite(leftRED, leftRedValue);
   analogWrite(leftGRN, leftGrnValue);
   analogWrite(leftBLUE, leftBlueValue);
+  
+  pause = analogRead(pot);
+  Serial.println(pause);
+  delay(pot);
+     analogWrite(leftRED, 0);
+  analogWrite(leftGRN, 0);
+  analogWrite(leftBLUE, 0);
 
   // display values of right channel on serial monitor
   for (band = 0; band < 7; band++)
