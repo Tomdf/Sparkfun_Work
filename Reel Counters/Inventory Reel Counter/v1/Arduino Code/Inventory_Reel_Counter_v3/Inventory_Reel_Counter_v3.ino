@@ -30,6 +30,7 @@ void loop(){
   if (encoder0Pos == 4){
     digitalWrite(plusPin, HIGH);
     digitalWrite(plusPin, LOW);
+  }
 }
 
 void doEncoderA(){
