@@ -29,18 +29,16 @@ void setup() {
   attachInterrupt(0, doEncoderA, FALLING);
   Serial.begin (9600);
   Serial7Segment.begin(9600); //Talk to the Serial7Segment at 9600 bps
-  Serial7Segment.write('v'); //Reset the display - this forces the cursor to return to the beginning of the display
   delay(10);
-  Serial7Segment.write(MODE_CMD); //Change the mode of the display
-  Serial7Segment.write(MODE_COUNTER); //Enter counter mode. Any pulse on SDI will go up. Any pulse on SDO will go down.
 }
 
 void loop(){  
+
   Serial.println(encoder0Pos);
 }
 
 void doEncoderA(){
-  if (digitalRead(encoder0PinB) == LOW) {
+  if ((digitalRead(encoder0PinB)== LOW) && (encoder0Pos > 0)) {
     //digitalWrite(plusPin, HIGH);
     //digitalWrite(plusPin, LOW);
     encoder0Pos -= 1; 
@@ -48,8 +46,12 @@ void doEncoderA(){
   else if (digitalRead(encoder0PinB) == HIGH) {
     //digitalWrite(minusPin, HIGH);
     //digitalWrite(minusPin, LOW);
-    encoder0Pos += 1; 
+    encoder0Pos += 1;     
   }
+  Serial7Segment.write('v'); //Reset the display - this forces the cursor to return to the beginning of the display
+  Serial7Segment.print(encoder0Pos);
 } 
+
+
 
 
